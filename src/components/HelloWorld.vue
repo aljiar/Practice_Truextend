@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
-    <li v-bind:key="name" v-for="name in names">
+    <li class="crop" v-bind:key="item" v-for="item in data">
       <div class="card">
-        <img class="image" v-bind:src="name.avatar_url" alt="Avatar" style="width:100%">
+        <img class="image" :src="item.avatar_url || './assets/nofound.jpg'" alt="Avatar" style="width:100%">
         <div class="container">
-          <h4><b>{{name.name}}</b></h4> 
-          <h5><b>{{name.github_url}}</b></h5> 
-          <p>{{name.nickName}}</p> 
+          <h4><b>{{item.name}}</b></h4> 
+          <h5><b>{{item.github_url}}</b></h5> 
+          <p>{{item.nickName}}</p> 
         </div>
       </div>
     </li>
@@ -20,8 +20,13 @@ export default {
   props: {
     msg: String
   },
+  methods:{
+    errorImage(event) {
+    event.target.src = "nofound.jpg"
+}
+  },
   computed:{
-  names(){
+  data(){
     return json.users.map((item) => {
         return item;
       })
@@ -29,8 +34,6 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   margin: 40px 0 0;
@@ -57,5 +60,14 @@ a {
 
 .container {
   padding: 2px 16px;
+}
+.crop {
+ height: 600px;
+ width: 400px;
+ overflow: hidden;
+}
+.crop img {
+ height: auto;
+ width: 400px;
 }
 </style>
