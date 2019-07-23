@@ -2,7 +2,7 @@
   <div class="hello">
     <li class="crop" v-bind:key="item" v-for="item in data">
       <div class="card">
-        <img class="image" :src="item.avatar_url || './assets/nofound.jpg'" alt="Avatar" style="width:100%">
+        <img class="image" :src="item.avatar_url || imageDefault" alt="Avatar" style="width:100%">
         <div class="container">
           <h4><b>{{item.name}}</b></h4> 
           <h5><b>{{item.github_url}}</b></h5> 
@@ -18,12 +18,12 @@ import json from '../assets/data.json'
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
   },
-  methods:{
-    errorImage(event) {
-    event.target.src = "nofound.jpg"
-}
+  data: function() {
+    return{
+      imageDefault: require("../assets/nofound.jpg")
+    }
   },
   computed:{
   data(){
